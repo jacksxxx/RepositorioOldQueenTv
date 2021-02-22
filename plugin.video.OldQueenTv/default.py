@@ -197,7 +197,7 @@ def daqueen(params):
         action="SportZonline", 
         title="[COLOR gold]Agenda SportZonline[/COLOR]",
         thumbnail="https://i.imgur.com/N0YcFQR.jpg",
-        url= "https://v4.sportzonline.to/prog.txt",
+        url= "https://v3.sportzonline.to/prog.txt",
         fanart="https://i.imgur.com/N0YcFQR.jpg",
         folder=True )       
     plugintools.add_item(  #acestream  
@@ -3644,9 +3644,9 @@ def peliculas_infantiles (params):
  header . append ( [ "User-Agent" , "Mozilla/5.0 (Windows NT 10.0; rv:75.0) Gecko/20100101 Firefox/75.0" ] )
  read_url , read_header = plugintools . read_body_and_headers ( url , headers = header )
  url = read_url . strip ( )
- matches =  re.findall(r'(?s)class=poster><img\s.*?src=(.*?.jpg) alt="(.*?)".*?href=(.*?) .*?</h3><span>(.*?)<', url, re.DOTALL)
+ matches =  re.findall(r'(?s)class=poster><img.*?src=(.+?)\s.*?class=data><h3><a.*?href=(.+?)\s>.*?h4>(.+?)<.*?span>(.+?)<.*?span>(\d.*?)<', url, re.DOTALL)
  next = plugintools.find_single_match(url,'(?s)rel=next href=(.*?)\s')
- for src,title, href, year in matches:
+ for src, href, title, year, min in matches:
   plugintools . add_item ( action = "peliculas_infantiles_clasicas2" , title =  title,  url = href, thumbnail = src, fanart="special://home/addons/plugin.video.iberika/tenor.gif", folder = True )   
  plugintools . add_item ( action = "peliculas_infantiles" , title = "PAGINA SIGUIENTE", url = next, thumbnail = "https://2.bp.blogspot.com/-q5yGYcBCQzg/Uv1E2m4c6oI/AAAAAAAAA7I/mK2JPXZh1w0/s1600/SIGUIENTE.png", fanart="special://home/addons/plugin.video.iberika/tenor.gif", folder=True )
 def peliculas_infantiles_clasicas2 (params): 
@@ -3768,7 +3768,7 @@ def documentales_online_cat (params):
  header . append ( [ "User-Agent" , "Mozilla/5.0 (Windows NT 10.0; rv:75.0) Gecko/20100101 Firefox/75.0" ] )
  read_url , read_header = plugintools . read_body_and_headers ( url , headers = header )
  url = read_url . strip ( )
- matches =  re.findall(r'(?s)<a href="(/.*?/.*?)">(.*?)<', url, re.DOTALL)
+ matches =  re.findall(r'(?s)<a href="(/categorias/.*?)">(.*?)<', url, re.DOTALL)
  for url, title  in matches:  
   plugintools . add_item ( action = "documentales_online_cat_1" , title = title , url = url , thumbnail = "https://www.documentales-online.com/img/documentales-online.png", fanart="special://home/addons/plugin.video.iberika/tenor.gif", folder = True )  
 def documentales_online_cat_1 (params): 
@@ -4312,7 +4312,7 @@ def zonlinefin(params):
         contenido = r.text
         return contenido
     url=dailyy(url)
-    url = plugintools.find_single_match(url,'iframe.+?src="(.+?)"')
+    url = 'https:'+plugintools.find_single_match(url,'iframe.+?src="(.+?)"')
     def wstram(url):
         import re, requests, resolveurl
         from resolveurl.plugins.lib import jsunpack 
